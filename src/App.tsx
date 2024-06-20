@@ -69,7 +69,7 @@ function App() {
         setCorrectSolution(true);
         algorithm.stop();
       }
-      await sleep(25);
+      await sleep(25); // HASTIGHET PÅ REFRESH! Ikke alltid korrekt
       if (!algorithm.isRunning) break;
     }
   };
@@ -131,7 +131,7 @@ function App() {
           </p>
         )}
 
-        {!algorithm && <Input onChange={handleInputChange} />}
+        {!algorithm && <Input onChange={handleInputChange} initialize={handleInitialize} isInitialized={isInitialized} isValidInput={isValidInput} />}
 
         {isInitialized && !algorithm?.isFinished && algorithm?.isRunning && (
           <Button onClick={stopAlgorithm} className="bg-red-400">
@@ -142,16 +142,6 @@ function App() {
         {isInitialized && algorithm?.isFinished && (
           <Button onClick={reset} className="bg-slate-500">
             Prøv en gang til!
-          </Button>
-        )}
-
-        {!isInitialized && (
-          <Button
-            onClick={handleInitialize}
-            disabled={!isValidInput}
-            className={!isValidInput ? "bg-red-400" : "bg-slate-500"}
-          >
-            {isValidInput ? "Velg løsning" : "Ugyldige tegn!"}
           </Button>
         )}
 
